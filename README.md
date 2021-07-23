@@ -1,2 +1,1 @@
-# GeoTag-Note
-# Android_Service_Receiver
+# All-My-Android-Studio-Projects
