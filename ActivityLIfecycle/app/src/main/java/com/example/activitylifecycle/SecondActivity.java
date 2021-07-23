@@ -4,7 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class SecondActivity extends AppCompatActivity {
+//public class SecondActivity extends AppCompatActivity, TracerActivity {
+public class SecondActivity extends TracerActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

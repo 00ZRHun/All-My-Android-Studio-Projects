@@ -1,0 +1,2 @@
+include ':app'
+rootProject.name = "Sending And Receiving Broadcast Messages Application"

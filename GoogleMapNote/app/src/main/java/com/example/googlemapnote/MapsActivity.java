@@ -9,6 +9,7 @@ import android.location.Location;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -36,12 +37,15 @@ import com.google.android.gms.tasks.OnCompleteListener;
 
 import com.google.android.gms.tasks.Task;
 
+import java.io.Serializable;
 import java.util.List;
 
 public class MapsActivity extends AppCompatActivity
-        implements OnMapReadyCallback {
+        implements OnMapReadyCallback, Serializable {
 
-    public static final String UNIQUE_LAT_LNG = "com.example.googlemapnote.mapsactivity.UNIQUE_LAT_LNG";
+    public static final String UNIQUE_ID_COMBINE_LAT_LNG = "com.example.googlemapnote.mapsactivity.UNIQUE_ID_COMBINE_LAT_LNG";
+    public static final String GOOGLE_MAP = "com.example.googlemapnote.mapsactivity.COOGLE_MAP";
+
     private double selectedLat;
     private double selectedLng;
     private double currentLat;
@@ -179,6 +183,12 @@ public class MapsActivity extends AppCompatActivity
                 //move map camera
                 mGoogleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 11));
 
+                // Display traffic.
+                mGoogleMap.setTrafficEnabled(true);
+
+                // Sets the map type to be "hybrid"
+                mGoogleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+
                 // Update latitude and longitude TEMP value
                 currentLat = location.getLatitude();
                 currentLng = location.getLongitude();
@@ -274,8 +284,8 @@ public class MapsActivity extends AppCompatActivity
 
                             // start new activity by using intent
                             Intent createNoteIntent = new Intent(MapsActivity.this, CreateNoteActivity.class);
-                            //createNoteIntent.putExtra(UNIQUE_LAT_LNG, selectedLat+";"+selectedLng);
-                            createNoteIntent.putExtra(UNIQUE_LAT_LNG, currentLat+";"+currentLng);
+                            //createNoteIntent.putExtra(UNIQUE_ID_COMBINE_LAT_LNG, selectedLat+";"+selectedLng);
+                            createNoteIntent.putExtra(UNIQUE_ID_COMBINE_LAT_LNG, currentLat+";"+currentLng);
                             startActivity(createNoteIntent);*/
 
                             toastText = "Create note at current location!!!";
@@ -283,9 +293,13 @@ public class MapsActivity extends AppCompatActivity
 
                             // start new activity by using intent
                             Intent createNoteIntent = new Intent(MapsActivity.this, CreateNoteActivity.class);
-                            //createNoteIntent.putExtra(UNIQUE_LAT_LNG, selectedLat+";"+selectedLng);
-                            createNoteIntent.putExtra(UNIQUE_LAT_LNG, latLngValue);
-                            startActivity(createNoteIntent);
+                            // ??? <<<=== ???
+                            //createNoteIntent.putExtra(UNIQUE_ID_COMBINE_LAT_LNG, selectedLat+";"+selectedLng);
+                            //createNoteIntent.putExtra(UNIQUE_ID_COMBINE_LAT_LNG, latLngValue);
+
+                            //createNoteIntent.putExtra(GOOGLE_MAP, (Serializable) mGoogleMap);
+                            /*Bundle gm = new Bundle(mGoogleMap);
+                            startActivity(createNoteIntent);*/
                         }
                     });
 
@@ -297,8 +311,8 @@ public class MapsActivity extends AppCompatActivity
 
                     // start new activity by using intent
                     Intent createNoteIntent = new Intent(MapsActivity.this, CreateNoteActivity.class);
-                    //createNoteIntent.putExtra(UNIQUE_LAT_LNG, selectedLat+";"+selectedLng);
-                    createNoteIntent.putExtra(UNIQUE_LAT_LNG, latLngValue);
+                    //createNoteIntent.putExtra(UNIQUE_ID_COMBINE_LAT_LNG, selectedLat+";"+selectedLng);
+                    createNoteIntent.putExtra(UNIQUE_ID_COMBINE_LAT_LNG, latLngValue);
                     startActivity(createNoteIntent);
                 }
             });
@@ -308,8 +322,8 @@ public class MapsActivity extends AppCompatActivity
 
             // start new activity by using intent
             Intent createNoteIntent = new Intent(MapsActivity.this, CreateNoteActivity.class);
-            //createNoteIntent.putExtra(UNIQUE_LAT_LNG, selectedLat+";"+selectedLng);
-            createNoteIntent.putExtra(UNIQUE_LAT_LNG, latLngValue);
+            //createNoteIntent.putExtra(UNIQUE_ID_COMBINE_LAT_LNG, selectedLat+";"+selectedLng);
+            createNoteIntent.putExtra(UNIQUE_ID_COMBINE_LAT_LNG, latLngValue);
             startActivity(createNoteIntent);*/
 
         } else {
@@ -326,7 +340,7 @@ public class MapsActivity extends AppCompatActivity
 
                             // start new activity by using intent
                             Intent createNoteIntent = new Intent(MapsActivity.this, CreateNoteActivity.class);
-                            createNoteIntent.putExtra(UNIQUE_LAT_LNG, currentLat+";"+currentLng);
+                            createNoteIntent.putExtra(UNIQUE_ID_COMBINE_LAT_LNG, currentLat+";"+currentLng);
                             startActivity(createNoteIntent);
                         }
                     });
